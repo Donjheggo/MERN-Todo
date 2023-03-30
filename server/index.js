@@ -3,6 +3,7 @@ const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler')
 
 const userRoutes = require('./routes/userRoutes')
+const todoRoutes = require('./routes/todoRoutes')
 
 require('dotenv').config();
 require("colors");
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
 
 // routes
 app.use("/api/v1/users",userRoutes)
+app.use("/api/v1/todos",todoRoutes)
+
 
 // server listen
 app.listen(PORT, () => {console.log(`Server running in PORT: ${PORT.cyan}`)})

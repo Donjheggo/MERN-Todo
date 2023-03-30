@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body
     if(!name || !email || !password){
         res.status(400)
-        throw new Error("Please add all fields")
+        throw new Error("Please add required fields")
     }
 
     // Check if user exist
@@ -93,7 +93,7 @@ const getUserData = asyncHandler(async(req, res) => {
 const updateUserData = asyncHandler(async(req, res) => {
     try{
         const { name, password } = req.body
-        const data = {}
+        let data = {}
         if(name) data.name = name
         if(password) data.password = hashPassword(password)
         const updatedData = await User.findByIdAndUpdate(req.user.id, data)
