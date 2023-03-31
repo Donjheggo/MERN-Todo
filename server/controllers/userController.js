@@ -8,15 +8,13 @@ const { hashPassword, comparePassword, generateTOken } = require('../utils/helpe
 const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body
     if(!name || !email || !password){
-        res.status(400)
-        throw new Error("Please add required fields")
+        res.status(400).json({message: 'Please add required fields'})
     }
 
     // Check if user exist
     const userExist = await User.findOne({ email })
     if(userExist){
-        res.status(400)
-        throw new Error("User already exist")
+        res.status(400).json({message: 'User already exist'})
     }
 
     // Create user
@@ -28,8 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Validate user adata
     if(!user){
-        res.status(400)
-        throw new Error("Invalid user data")
+        res.status(400).json({message: 'Invalid user data'})
     }
 
     // Successful request and send token
@@ -52,13 +49,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
         // Check if email exist
         if(!user){
-            res.status(401)
-            throw new Error("Invalid credentials")
+            res.status(401).json({message: 'Invalid credentials'})
         }
         // Check if password match
         if(!isPasswordMatch){
-            res.status(401)
-            throw new Error("Invalid credentials")
+            res.status(401).json({message: 'Invalid credentials'})
         }
         // Success response
         res.status(200).json({
@@ -68,10 +63,8 @@ const loginUser = asyncHandler(async (req, res) => {
             token: generateTOken(user._id)
         })
     }catch(err){
-        res.status(500)
-        throw new Error(err.message)
+        res.status(500).json({message: err.message})
     }
-
 })
 
 
@@ -98,17 +91,14 @@ const updateUserData = asyncHandler(async(req, res) => {
         if(password) data.password = hashPassword(password)
         const updatedData = await User.findByIdAndUpdate(req.user.id, data)
         if(req.body.email){
-            res.status(400)
-            throw new Error("Email can't be updated")
+            res.status(400).json({message: "Email can't be updated"});
         }
         if(!updatedData){
-            res.status(404);
-            throw new Error('User not found')
+            res.status(404).json({message: "Email can't be updated"});
         }
         res.status(202).json(updatedData)
     }catch(err){
-        res.status(404)
-        throw new Error(err.message)
+        res.status(404).json({message: err.message});
     }
 })
 

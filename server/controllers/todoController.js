@@ -17,8 +17,7 @@ const getTodo = asyncHandler(async(req, res) => {
 const createTodo = asyncHandler(async(req, res) => {
     const {title, description, dueDate} = req.body;
     if(!title || !description){
-        res.status(400)
-        throw new Error("Please add required fields");
+        res.status(400).json({message: "Please add required fields"})
     }
 
     const data = {title, description};
@@ -34,8 +33,7 @@ const createTodo = asyncHandler(async(req, res) => {
     );
 
     if(!todo){
-        res.status(400)
-        throw new Error("Invalid data")
+        res.status(400).json({message: "Invalid data"})
     }
     
     res.status(201).json(todo);
@@ -60,8 +58,7 @@ const updateTodo = asyncHandler(async(req, res) => {
     );
 
     if(!todo){
-        res.status(400)
-        throw new Error("Invalid data")
+        res.status(400).json({message: "Invalid data"})
     }
     
     res.status(201).json(todo);
@@ -73,8 +70,7 @@ const updateTodo = asyncHandler(async(req, res) => {
 const deleteTodo = asyncHandler(async(req, res) => {
     const deletedTodo = await Todo.findByIdAndDelete(req.params.id)
     if(!deletedTodo){
-        res.status(404)
-        throw new Error("Todo doesn't exists")
+        res.status(404).json({message: "Todo doesn't exists"})
     }
     res.status(200).json({message: `Deleted ${deletedTodo}`})
 })
