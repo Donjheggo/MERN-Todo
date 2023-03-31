@@ -25,7 +25,7 @@ export default function RecipeReviewCard() {
   return (
     <Grid item lg={4} md={6} sm={12} xs={12}>
     
-      <Card sx={{ backgroundColor: "#97A97C" }}>
+      <Card sx={{ backgroundColor: "#97A97C", color: "#E9F5DB" }}>
         <CardHeader
           action={
             <>
@@ -52,12 +52,13 @@ export default function RecipeReviewCard() {
             </Menu>
             </>
           }
+          subheaderTypographyProps={{color: "#CFE1B9"}}
           title="Shrimp and Chorizo Paella"
           subheader="September 14, 2016"
         />
 
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="#E9F5DB">
             This impressive paella is a perfect party dish and a fun meal to
             cook together with your guests. Add 1 cup of frozen peas along with
             the mussels, if you like.

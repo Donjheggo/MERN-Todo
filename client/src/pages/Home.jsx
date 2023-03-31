@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <>
-      <Typography align='center' variant='h4'>To do</Typography>
+      <Typography align='center' variant='h4' sx={{marginBottom: '20px'}}>To do</Typography>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}>
           {todoElements}
         </Grid>
