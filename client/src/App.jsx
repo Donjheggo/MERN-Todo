@@ -6,8 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import LandingPage from "./pages/LandingPage";
 import MainLayout from "./components/MainLayout";
+import AuthLayout from "./components/AuthLayout";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
@@ -19,13 +19,12 @@ const App = () => {
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Home />} />
     </Route>
-  ) : 
+  ): 
   (
-    <>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
+    <Route path="/" element={<AuthLayout />}>
+      <Route index element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-    </>
+    </Route>
   );
   const router = createBrowserRouter(createRoutesFromElements(routes));
   return (
