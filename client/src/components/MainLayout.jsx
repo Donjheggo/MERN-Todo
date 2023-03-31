@@ -21,7 +21,9 @@ const MainLayout = () => {
       <Navigation/>
         <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: '#E9F5DB', height: '100vh' }}>
           <DrawerHeader/>
-          <Outlet/>
+          <div style={{color: '#87986A'}}>
+            <Outlet/>
+          </div>
         </Box>
     </Box>
     </>

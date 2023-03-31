@@ -160,7 +160,7 @@ export default function Navigation() {
           }
           
           <Typography variant="h6" noWrap component="div">
-            Page Title
+            {/* Page Title */}
           </Typography>
 
           <IconButton
