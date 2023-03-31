@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import MainLayout from "./components/MainLayout";
 import AuthLayout from "./components/AuthLayout";
 import Home from "./pages/Home";

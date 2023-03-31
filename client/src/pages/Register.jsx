@@ -1,4 +1,8 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { register } from "../features/auth/authSlice";
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -14,21 +18,32 @@ function Copyright(props) {
         MERN-TODO
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
 
 
-const Login = () => {
-  const handleLoginSubmit = (event) => {
+const Register = () => {
+  const dispatch = useDispatch()
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData = new FormData(event.currentTarget);
+    const { name, email, password, confirmPassword } = Object.fromEntries(
+      formData.entries()
+    ); 
+
+    if(password !== confirmPassword){
+      toast.error("Password do not match");
+    }else{
+      try{
+        dispatch(register({name, email, password}));
+      }catch(err){
+        toast.error(err.message)
+      }
+    }
+      
   };
+
   return (
     <>
       <Typography component="h1" variant="h5">
@@ -37,7 +52,7 @@ const Login = () => {
       <Box
         component="form"
         noValidate
-        onSubmit={handleLoginSubmit}
+        onSubmit={handleSubmit}
         sx={{ mt: 1 }}
       >
         <TextField
@@ -70,6 +85,16 @@ const Login = () => {
           id="password"
           autoComplete="current-password"
         />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="confirmPassword"
+          label="Confirm Password"
+          type="password"
+          id="confirmPassword"
+          autoComplete="confirm-password"
+        />
         <Button
           type="submit"
           fullWidth
@@ -100,4 +125,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

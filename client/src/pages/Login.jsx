@@ -19,13 +19,13 @@ function Copyright(props) {
         MERN-TODO
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
 
 const Login = () => {
-  const handleLoginSubmit = (event) => {
+  
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -41,7 +41,7 @@ const Login = () => {
       <Box
         component="form"
         noValidate
-        onSubmit={handleLoginSubmit}
+        onSubmit={handleSubmit}
         sx={{ mt: 1 }}
       >
         <TextField
