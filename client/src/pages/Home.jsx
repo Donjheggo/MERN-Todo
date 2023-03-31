@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from '../components/Card'
 import Grid from '@mui/material/Grid';
+import { Typography } from '@mui/material';
 
 const Home = () => {
 
@@ -16,10 +17,10 @@ const Home = () => {
 
   return (
     <>
-      <h1>TODO List</h1>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}>
-        {todoElements}
-      </Grid>
+      <Typography align='center' variant='h4'>To do</Typography>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}>
+          {todoElements}
+        </Grid>
     </>
   )
 }
