@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getTodo, createTodo, updateTodo} = require('../controllers/todoController')
+const { getTodo, createTodo, updateTodo, deleteTodo} = require('../controllers/todoController')
 const authProtect = require('../middlewares/authProtect')
 
 const router = Router();
@@ -12,7 +12,7 @@ router
 router
     .route("/:id")
     .put(authProtect, updateTodo)
-    .delete(authProtect, )
+    .delete(authProtect, deleteTodo)
 
 
 module.exports = router;

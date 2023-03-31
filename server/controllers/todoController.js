@@ -67,8 +67,22 @@ const updateTodo = asyncHandler(async(req, res) => {
     res.status(201).json(todo);
 })
 
+// @desc Delete user Todo
+// @route DELETE /api/v1/todo/:id
+// @access Private
+const deleteTodo = asyncHandler(async(req, res) => {
+    const deletedTodo = await Todo.findByIdAndDelete(req.params.id)
+    if(!deletedTodo){
+        res.status(404)
+        throw new Error("Todo doesn't exists")
+    }
+    res.status(200).json({message: `Deleted ${deletedTodo}`})
+})
+
+
 module.exports = {
     getTodo,
     createTodo,
     updateTodo,
+    deleteTodo
 }
