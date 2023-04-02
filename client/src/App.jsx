@@ -17,19 +17,30 @@ import { useSelector } from 'react-redux'
 const App = () => {
   const {user} = useSelector(state => state.auth)
   const isAuthenticated = Boolean(user);
-  const routes = isAuthenticated ? 
-  (
-    <Route path="/" element={<MainLayout />}>
-      <Route index element={<Home />} />
-    </Route>
-  ): 
-  (
+  // const routes = isAuthenticated ? 
+  // (
+  //   <Route path="/" element={<MainLayout />}>
+  //     <Route index element={<Home />} />
+  //   </Route>
+  // ): 
+  // (
+  //   <Route path="/" element={<AuthLayout />}>
+  //     <Route index element={<LoginPage />} />
+  //     <Route path="/register" element={<RegisterPage />} />
+  //   </Route>
+  // );
+  const router = createBrowserRouter(createRoutesFromElements(
+    <>
     <Route path="/" element={<AuthLayout />}>
       <Route index element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
     </Route>
-  );
-  const router = createBrowserRouter(createRoutesFromElements(routes));
+    <Route path="/home" element={<MainLayout />}>
+      <Route index element={<Home />} />
+    </Route>
+    </>
+ 
+  ));
   return (
     <>
       <RouterProvider router={router} />

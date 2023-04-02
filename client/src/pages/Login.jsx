@@ -31,6 +31,7 @@ function Copyright(props) {
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const test = useSelector(state => state.auth)
   const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,9 +51,9 @@ const Login = () => {
       toast.error(message)
     }
     if(isSuccess || user){
-      navigate("/")
+      navigate("/home")
     }
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  }, [user, isError, isSuccess])
 
   if(isLoading){
     return <Loader/>

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card'
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 
 const Home = () => {
+  const navigate = useNavigate()
+  const { user } = useSelector(state => state.auth)
 
   const data = [
     {title: 'Title one', description: 'Description 1'},
@@ -12,8 +16,13 @@ const Home = () => {
     {title: 'Title four', description: 'Description 4'}
 
   ]
-
   const todoElements = data.map(item => <Card key={item.title} title={item.title} description={item.description}/>)
+
+  useEffect( () => {
+    if(!user){
+      navigate("/")
+    }
+  }, [user])
 
   return (
     <>

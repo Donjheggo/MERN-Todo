@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-import { toast } from 'react-toastify'
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -40,6 +39,13 @@ export const login = createAsyncThunk(
     return thunkAPI.rejectWithValue(message);
     }
   }
+);
+
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async () => {
+    authService.logout()
+  }
 )
 
 export const authSlice = createSlice({
@@ -73,6 +79,7 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.isError = false,
         state.isLoading = false,
         state.isSuccess = true,
         state.user = action.payload;
@@ -82,6 +89,14 @@ export const authSlice = createSlice({
         state.isError = true,
         state.user = null,
         state.message = action.payload;
+      })
+      .addCase(logout.pending, (state, action) => {
+        state.isLoading = true,
+        state.isSuccess = false;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoading = false,
+        state.user = null;
       })
   },
 });

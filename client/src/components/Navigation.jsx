@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../features/auth/authSlice'
 
 //////// MUI //////////////////
 import { styled, useTheme, createTheme, ThemeProvider, } from '@mui/material/styles';
@@ -114,6 +116,8 @@ const styles = {
 
 
 export default function Navigation() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -132,6 +136,10 @@ export default function Navigation() {
   
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout())
   };
 
   return (
@@ -191,7 +199,7 @@ export default function Navigation() {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
           
         </Toolbar>

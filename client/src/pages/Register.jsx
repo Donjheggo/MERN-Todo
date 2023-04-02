@@ -29,7 +29,7 @@ function Copyright(props) {
 const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
+  const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -46,18 +46,17 @@ const Register = () => {
         toast.error(err.message)
       }
     }
-      
+
   };
 
   useEffect( () => {
     if(isError){
       toast.error(message)
     }
-    console.log(user)
-    if(user){
-      navigate("/")
+    if(isSuccess || user){
+      navigate("/home")
     }
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  }, [user, isError, isSuccess])
 
   if(isLoading){
     return <Loader/>
