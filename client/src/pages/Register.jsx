@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { register } from "../features/auth/authSlice";
 
@@ -9,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+
+import Loader from '../components/Loader'
 
 function Copyright(props) {
   return (
@@ -25,6 +28,8 @@ function Copyright(props) {
 
 const Register = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -43,6 +48,21 @@ const Register = () => {
     }
       
   };
+
+  useEffect( () => {
+    if(isError){
+      toast.error(message)
+    }
+    console.log(user)
+    if(user){
+      navigate("/")
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
+  if(isLoading){
+    return <Loader/>
+  }
+
 
   return (
     <>

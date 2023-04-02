@@ -12,9 +12,11 @@ import AuthLayout from "./components/AuthLayout";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+import { useSelector } from 'react-redux'
 
 const App = () => {
-  const isAuthenticated = false;
+  const {user} = useSelector(state => state.auth)
+  const isAuthenticated = Boolean(user);
   const routes = isAuthenticated ? 
   (
     <Route path="/" element={<MainLayout />}>

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import { useDispatch } from "react-redux";
-import { login } from '../features/auth/authSlice'
+import { useDispatch, useSelector } from "react-redux";
+import { login } from '../features/auth/authSlice';
+import Loader from '../components/Loader'
+import { toast } from "react-toastify";
 
 function Copyright(props) {
   return (
@@ -26,15 +29,34 @@ function Copyright(props) {
 }
 
 const Login = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const { email, password} = Object.fromEntries(
       formData.entries()
     ); 
-    dispatch(login({email, password}))
+    try{
+      dispatch(login({email, password}))
+    }catch(err){
+      toast.error(err.message)
+    }
   };
+
+  useEffect( () => {
+    if(isError){
+      toast.error(message)
+    }
+    if(isSuccess || user){
+      navigate("/")
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
+  if(isLoading){
+    return <Loader/>
+  }
 
   return (
     <>
