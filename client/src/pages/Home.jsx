@@ -3,20 +3,22 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card'
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
+import Dialog from '../components/Dialog';
+
 
 const Home = () => {
   const navigate = useNavigate()
   const { user } = useSelector(state => state.auth)
-
   const data = [
-    {title: 'Title one', description: 'Description 1'},
-    {title: 'Title two', description: 'Description 2'},
-    {title: 'Title three', description: 'Description 3'},
-    {title: 'Title four', description: 'Description 4'}
+    {title: 'Title one', description: 'Description 1', createdAt: 'January, 16, 2023'},
+    {title: 'Title two', description: 'Description 2', createdAt: 'January, 16, 2023'},
+    {title: 'Title three', description: 'Description 3', createdAt: 'January, 16, 2023'},
+    {title: 'Title four', description: 'Description 4', createdAt: 'January, 16, 2023'}
 
   ]
-  const todoElements = data.map(item => <Card key={item.title} title={item.title} description={item.description}/>)
+  const todoElements = data.map(item => <Card key={item.title} title={item.title} description={item.description} createdAt={item.createdAt}/>)
+  
 
   useEffect( () => {
     if(!user){
@@ -26,7 +28,11 @@ const Home = () => {
 
   return (
     <>
-      <Typography align='center' variant='h4' sx={{marginBottom: '20px'}}>To do</Typography>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px'}}>
+        <Typography align='center' variant='h4'>To do</Typography>
+        <Dialog/>
+      </Box>
+
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}>
           {todoElements}
         </Grid>
@@ -34,4 +40,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

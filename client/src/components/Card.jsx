@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 
 
-export default function RecipeReviewCard() {
+export default function TodoCard(props) {
   const [cardEL, setCardEl] = React.useState(null);
   
   const handleMenuCard = (event) => {
@@ -53,15 +53,13 @@ export default function RecipeReviewCard() {
             </>
           }
           subheaderTypographyProps={{color: "#CFE1B9"}}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={props.title}
+          subheader={props.createdAt}
         />
 
         <CardContent>
           <Typography variant="body2" color="#E9F5DB">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {props.description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
