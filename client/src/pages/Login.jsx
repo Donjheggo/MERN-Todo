@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
+import { useDispatch } from "react-redux";
+import { login } from '../features/auth/authSlice'
 
 function Copyright(props) {
   return (
@@ -24,15 +26,16 @@ function Copyright(props) {
 }
 
 const Login = () => {
-  
+  const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const formData = new FormData(event.currentTarget);
+    const { email, password} = Object.fromEntries(
+      formData.entries()
+    ); 
+    dispatch(login({email, password}))
   };
+
   return (
     <>
       <Typography component="h1" variant="h5">
