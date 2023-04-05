@@ -19,16 +19,14 @@ const createTodo = asyncHandler(async(req, res) => {
     if(!title || !description){
         res.status(400).json({message: "Please add required fields"})
     }
-
-    const data = {title, description};
+    const data = {};
+    if(title) data.title = title
+    if(description) data.description = description
     if(dueDate) data.dueDate = dueDate;
-    console.log(data)
     const todo = await Todo.create(
         {
             user: req.user, 
-            title: data.title, 
-            description: data.description,
-            dueDate: dueDate
+            data
         }
     );
 
