@@ -5,41 +5,59 @@ import Card from "../components/Card";
 import Grid from "@mui/material/Grid";
 import { Typography, Box } from "@mui/material";
 import Dialog from "../components/Dialog";
-import { getTodos, reset } from "../features/todos/todoSlice";
-import Loader from '../components/Loader'
+import { reset, getTodos, createTodo, deleteTodo, updateTodo } from "../features/todos/todoSlice";
+import Loader from "../components/Loader";
 import { toast } from "react-toastify";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { todos, isLoading, isError, message } = useSelector((state) => state.todos);
-  
-  const todoElements = todos.length ? todos.map((item) => (
-    <Card
-      key={item.id}
-      title={item.title}
-      description={item.description}
-      dueDate={item.dueDate || <>no duedate</>}
-    />
-  )) : (<h1>No Todo</h1>) ;
+  const { todos, isLoading, isError, message } = useSelector(
+    (state) => state.todos
+  );
+
+  const todoElements = todos.length ? (
+    todos.map((item) => (
+      <Card
+        key={item._id}
+        title={item.title}
+        description={item.description}
+        dueDate={item.dueDate}
+        update={() => dispatch(updateTodo(item._id))}
+        delete={() => dispatch(deleteTodo(item._id))}
+      />
+    ))
+  ) : (
+    <Typography variant="h5" sx={{paddingLeft: '18px'}}>None</Typography>
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const { title, description, dueDate } = Object.fromEntries(formData.entries());
+
+    console.log(title, description, dueDate);
+    dispatch(createTodo({ title, description, dueDate }));
+
+  };
 
   useEffect(() => {
-    if(isError){
-      toast.error(message)
+    if (isError) {
+      toast.error(message);
     }
     if (!user) {
       navigate("/");
+    } else {
+      dispatch(getTodos());
+      return () => {
+        dispatch(reset());
+      };
     }
-    dispatch(getTodos());
-    return () => {
-      dispatch(reset());
-    }
-  }, []);
-  
+  }, [user, isError, message]);
 
-  if(isLoading){
-    return <Loader/>
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -55,7 +73,7 @@ const Home = () => {
         <Typography align="center" variant="h4">
           To do
         </Typography>
-        <Dialog />
+        <Dialog submit={handleSubmit} />
       </Box>
 
       <Grid

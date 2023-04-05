@@ -31,7 +31,6 @@ function Copyright(props) {
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const test = useSelector(state => state.auth)
   const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
   const handleSubmit = (event) => {
     event.preventDefault();
