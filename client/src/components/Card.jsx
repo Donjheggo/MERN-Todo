@@ -83,7 +83,7 @@ export default function TodoCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton>
             <CheckIcon />
           </IconButton>
         </CardActions>
