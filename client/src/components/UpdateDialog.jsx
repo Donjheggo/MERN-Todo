@@ -9,7 +9,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 
 export default function FormDialog(props) {
-  
   return (
     <div>
       <Dialog open={props.updateOpen} onClose={props.closeUpdate}>
