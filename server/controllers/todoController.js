@@ -27,8 +27,8 @@ const createTodo = asyncHandler(async(req, res) => {
         {
             user: req.user, 
             title: data.title, 
-            description: 
-            data.description
+            description: data.description,
+            dueDate: dueDate
         }
     );
 
