@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useState} from 'react'
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -10,10 +11,19 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
+import UpdateDialog from './UpdateDialog';
 
 export default function TodoCard(props) {
   const [cardEL, setCardEl] = React.useState(null);
+  const [toggleUpdate, setToggleUpdate] = useState(false)
+  
+  const openUpdate = () => {
+    setToggleUpdate(true)
+  }
 
+  const closeUpdate = () => {
+    setToggleUpdate(false)
+  }
   const handleMenuCard = (event) => {
     setCardEl(event.currentTarget);
   };
@@ -30,6 +40,8 @@ export default function TodoCard(props) {
     hour: "numeric",
     minute: "numeric",
   }) : "None";
+
+
   return (
     <Grid item lg={4} md={6} sm={12} xs={12}>
       <Card sx={{ backgroundColor: "#97A97C", color: "#E9F5DB" }}>
@@ -54,7 +66,7 @@ export default function TodoCard(props) {
                 open={Boolean(cardEL)}
                 onClose={handleCloseCard}
               >
-                <MenuItem onClick={handleCloseCard}>Edit</MenuItem>
+                <MenuItem onClick={openUpdate}>Edit</MenuItem>
                 <MenuItem onClick={props.delete}>Delete</MenuItem>
               </Menu>
             </>
@@ -75,6 +87,7 @@ export default function TodoCard(props) {
           </IconButton>
         </CardActions>
       </Card>
+      <UpdateDialog updateOpen={toggleUpdate} closeUpdate={closeUpdate} dueDate={props.dueDate} title={props.title} description={props.description}/>
     </Grid>
   );
 }
