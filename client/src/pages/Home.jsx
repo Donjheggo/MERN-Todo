@@ -1,43 +1,72 @@
-import React, {useEffect} from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
-import Card from '../components/Card'
-import Grid from '@mui/material/Grid';
-import { Button, Typography, Box } from '@mui/material';
-import Dialog from '../components/Dialog';
-
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
+import Grid from "@mui/material/Grid";
+import { Typography, Box } from "@mui/material";
+import Dialog from "../components/Dialog";
+import { getTodos, reset } from "../features/todos/todoSlice";
+import Loader from '../components/Loader'
+import { toast } from "react-toastify";
 
 const Home = () => {
-  const navigate = useNavigate()
-  const { user } = useSelector(state => state.auth)
-  const data = [
-    {title: 'Title one', description: 'Description 1', createdAt: 'January, 16, 2023'},
-    {title: 'Title two', description: 'Description 2', createdAt: 'January, 16, 2023'},
-    {title: 'Title three', description: 'Description 3', createdAt: 'January, 16, 2023'},
-    {title: 'Title four', description: 'Description 4', createdAt: 'January, 16, 2023'}
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { todos, isLoading, isError, message } = useSelector((state) => state.todos);
+  
+  const todoElements = todos.length ? todos.map((item) => (
+    <Card
+      key={item.id}
+      title={item.title}
+      description={item.description}
+      dueDate={item.dueDate || <>no duedate</>}
+    />
+  )) : (<h1>No Todo</h1>) ;
 
-  ]
-  const todoElements = data.map(item => <Card key={item.title} title={item.title} description={item.description} createdAt={item.createdAt}/>)
+  useEffect(() => {
+    if(isError){
+      toast.error(message)
+    }
+    if (!user) {
+      navigate("/");
+    }
+    dispatch(getTodos());
+    return () => {
+      dispatch(reset());
+    }
+  }, []);
   
 
-  useEffect( () => {
-    if(!user){
-      navigate("/")
-    }
-  }, [user])
+  if(isLoading){
+    return <Loader/>
+  }
 
   return (
     <>
-      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px'}}>
-        <Typography align='center' variant='h4'>To do</Typography>
-        <Dialog/>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <Typography align="center" variant="h4">
+          To do
+        </Typography>
+        <Dialog />
       </Box>
 
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}>
-          {todoElements}
-        </Grid>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 2 }}
+      >
+        {todoElements}
+      </Grid>
     </>
-  )
-}
+  );
+};
 
 export default Home;

@@ -54,7 +54,7 @@ export default function TodoCard(props) {
           }
           subheaderTypographyProps={{color: "#CFE1B9"}}
           title={props.title}
-          subheader={props.createdAt}
+          subheader={props.dueDate}
         />
 
         <CardContent>
