@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 
-export default function FormDialog(props) {
+export default function CreateDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

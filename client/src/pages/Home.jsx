@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import Grid from "@mui/material/Grid";
 import { Typography, Box } from "@mui/material";
-import Dialog from "../components/Dialog";
+import CreateDialog from "../components/CreateDialog";
 import {
   reset,
   getTodos,
@@ -104,7 +104,7 @@ const Home = () => {
         <Typography align="center" variant="h4">
           To do
         </Typography>
-        <Dialog submit={handleSubmit} />
+        <CreateDialog submit={handleSubmit} />
       </Box>
 
       <Grid
