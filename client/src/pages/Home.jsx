@@ -30,7 +30,6 @@ const Home = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget);
     const { title, description, dueDate } = Object.fromEntries(formData.entries());
-    console.log(title, description, dueDate);
     dispatch(updateTodo({ id, todoData:{title, description, dueDate}}));
   }
   
