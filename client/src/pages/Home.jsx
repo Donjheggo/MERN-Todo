@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
@@ -18,6 +18,22 @@ const Home = () => {
     (state) => state.todos
   );
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const { title, description, dueDate } = Object.fromEntries(formData.entries());
+    console.log(title, description, dueDate);
+    dispatch(createTodo({ title, description, dueDate }));
+  };
+
+  const handleUpdateSubmit = (e, id) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget);
+    const { title, description, dueDate } = Object.fromEntries(formData.entries());
+    console.log(title, description, dueDate);
+    dispatch(updateTodo({ id, todoData:{title, description, dueDate}}));
+  }
+  
   const todoElements = todos.length ? (
     todos.map((item) => (
       <Card
@@ -25,23 +41,13 @@ const Home = () => {
         title={item.title}
         description={item.description}
         dueDate={item.dueDate}
-        update={() => dispatch(updateTodo(item._id))}
+        update={(e) => handleUpdateSubmit(e, item._id)}
         delete={() => dispatch(deleteTodo(item._id))}
       />
     ))
   ) : (
     <Typography variant="h5" sx={{paddingLeft: '18px'}}>None</Typography>
   );
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const { title, description, dueDate } = Object.fromEntries(formData.entries());
-
-    console.log(title, description, dueDate);
-    dispatch(createTodo({ title, description, dueDate }));
-
-  };
 
   useEffect(() => {
     if (isError) {

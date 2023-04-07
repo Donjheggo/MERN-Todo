@@ -32,6 +32,7 @@ export default function TodoCard(props) {
     setCardEl(null);
   };
 
+
   const formattedDate = props.dueDate
     ? new Date(props.dueDate).toLocaleString("en-US", {
         weekday: "long",
@@ -94,6 +95,7 @@ export default function TodoCard(props) {
         dueDate={props.dueDate}
         title={props.title}
         description={props.description}
+        update={props.update}
       />
     </Grid>
   );

@@ -1,22 +1,37 @@
 import * as React from "react";
+import {useState} from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
+
 
 export default function FormDialog(props) {
   
-  const date = new Date(props.dueDate);
-  const formattedDate = date.toISOString().slice(0, 16);
+  const formattedDate = props.dueDate
+  ? new Date(props.dueDate).toISOString().slice(0, 16)
+  : "";
+
+  const [updatedFormData, setUpdatedFormData] = useState({
+    dueDate: formattedDate,
+    title: props.title,
+    description: props.description
+  })
+
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setUpdatedFormData( prev => {
+      return {...prev, [name]: value}
+    })
+  }
 
   return (
     <div>
       <Dialog open={props.updateOpen} onClose={props.closeUpdate}>
-        <Box component="form" noValidate onSubmit={props.submit}>
+        <Box component="form" noValidate onSubmit={props.update}>
           <DialogTitle>Todo</DialogTitle>
           <DialogContent>
             <TextField
@@ -27,7 +42,8 @@ export default function FormDialog(props) {
               margin="dense"
               type="datetime-local"
               variant="standard"
-              value={formattedDate}
+              value={updatedFormData.dueDate}
+              onChange={handleChange}
             />
             <TextField
               autoFocus
@@ -38,7 +54,8 @@ export default function FormDialog(props) {
               type="email"
               fullWidth
               variant="standard"
-              value={props.title}
+              value={updatedFormData.title}
+              onChange={handleChange}
             />
             <TextField
               autoFocus
@@ -51,7 +68,8 @@ export default function FormDialog(props) {
               type="email"
               fullWidth
               variant="standard"
-              value={props.description}
+              value={updatedFormData.description}
+              onChange={handleChange}
             />
           </DialogContent>
           <DialogActions>
