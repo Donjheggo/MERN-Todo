@@ -9,6 +9,10 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 
 export default function FormDialog(props) {
+  
+  const date = new Date(props.dueDate);
+  const formattedDate = date.toISOString().slice(0, 16);
+
   return (
     <div>
       <Dialog open={props.updateOpen} onClose={props.closeUpdate}>
@@ -23,7 +27,7 @@ export default function FormDialog(props) {
               margin="dense"
               type="datetime-local"
               variant="standard"
-              value={props.dueDate}
+              value={formattedDate}
             />
             <TextField
               autoFocus
