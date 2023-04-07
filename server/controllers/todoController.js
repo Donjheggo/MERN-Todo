@@ -49,7 +49,7 @@ const updateTodo = asyncHandler(async(req, res) => {
     if(title) updatedData.title = title
     if(description) updatedData.description = description
     if(dueDate) updatedData.dueDate = dueDate;
-    if(completed) updatedData.completed = completed
+    if(completed !== undefined) updatedData.completed = completed
     console.log(updatedData)
     const todo = await Todo.findByIdAndUpdate(
         req.params.id,
