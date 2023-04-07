@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from 'react';
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -7,26 +7,26 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-
+import moment from "moment";
 
 export default function FormDialog(props) {
   
   const formattedDate = props.dueDate
-  ? new Date(props.dueDate).toISOString().slice(0, 16)
+  ? moment.utc(props.dueDate).local().format("YYYY-MM-DDTHH:mm")
   : "";
 
   const [updatedFormData, setUpdatedFormData] = useState({
     dueDate: formattedDate,
     title: props.title,
-    description: props.description
-  })
+    description: props.description,
+  });
 
   const handleChange = (e) => {
-    const {name, value} = e.target
-    setUpdatedFormData( prev => {
-      return {...prev, [name]: value}
-    })
-  }
+    const { name, value } = e.target;
+    setUpdatedFormData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   return (
     <div>

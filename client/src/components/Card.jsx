@@ -12,6 +12,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 import UpdateDialog from "./UpdateDialog";
+import moment from "moment";
 
 export default function TodoCard(props) {
   const [cardEL, setCardEl] = React.useState(null);
@@ -32,16 +33,14 @@ export default function TodoCard(props) {
     setCardEl(null);
   };
 
-
   const formattedDate = props.dueDate
-    ? new Date(props.dueDate).toLocaleString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      })
+    ? moment
+        .utc(props.dueDate)
+        .local()
+        .format("ddd MMM DD YYYY hh:mm A")
+        .replace(/:[0-9]{2}$/, (a) => {
+          return a.toLowerCase();
+        })
     : "None";
 
   return (
