@@ -44,7 +44,6 @@ const Home = () => {
   };
 
   const [completedIds, setCompletedIds] = useState([]);
-
   const handleCompletionStatus = (id) => {
     if (completedIds.includes(id)) {
       setCompletedIds(completedIds.filter((completedId) => completedId !== id));
