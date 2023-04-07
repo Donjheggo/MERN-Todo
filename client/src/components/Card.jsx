@@ -84,10 +84,10 @@ export default function TodoCard(props) {
           <br/>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" onClick={props.completionStatus}>
             <CheckIcon /> 
           </IconButton>
-          {props.isCompleted ? "Done" : "Undo"}
+          {props.isCompleted}
         </CardActions>
       </Card>
       <UpdateDialog
