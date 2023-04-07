@@ -19,11 +19,6 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
-  const { todos, isLoading, isError, message } = useSelector(
-    (state) => state.todos
-  );
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -53,6 +48,12 @@ const Home = () => {
       dispatch(updateTodo({ id, todoData: { completed: true } }));
     }
   };
+
+  
+  const { user } = useSelector((state) => state.auth);
+  const { todos, isLoading, isError, message } = useSelector(
+    (state) => state.todos
+  );
 
   const todoElements = todos.length ? (
     todos.map((item) => (
