@@ -39,7 +39,7 @@ const Home = () => {
   };
 
   const [completedIds, setCompletedIds] = useState([]);
-  
+
   const handleCompletionStatus = (id) => {
     if (completedIds.includes(id)) {
       setCompletedIds(completedIds.filter((completedId) => completedId !== id));
@@ -66,7 +66,7 @@ const Home = () => {
         update={(e) => handleUpdateSubmit(e, item._id)}
         delete={() => dispatch(deleteTodo(item._id))}
         completionStatus={() => handleCompletionStatus(item._id)}
-        isCompleted={item.completed ? "Undo" : "Done"}
+        isCompleted={item.completed}
       />
     ))
   ) : (

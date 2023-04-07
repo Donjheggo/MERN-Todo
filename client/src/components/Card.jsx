@@ -7,6 +7,7 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from '@mui/icons-material/Close';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -85,9 +86,9 @@ export default function TodoCard(props) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites" onClick={props.completionStatus}>
-            <CheckIcon /> 
+            {props.isCompleted ? <CloseIcon/> : <CheckIcon/>} 
           </IconButton>
-          {props.isCompleted}
+          {props.isCompleted  ? "Undo" : "Done"}
         </CardActions>
       </Card>
       <UpdateDialog
