@@ -36,12 +36,13 @@ const Home = () => {
   const todoElements = todos.length ? (
     todos.map((item) => (
       <Card
-        key={item._id}
-        title={item.title}
-        description={item.description}
-        dueDate={item.dueDate}
-        update={(e) => handleUpdateSubmit(e, item._id)}
-        delete={() => dispatch(deleteTodo(item._id))}
+      key={item._id}
+      title={item.title}
+      description={item.description}
+      dueDate={item.dueDate}
+      update={(e) => handleUpdateSubmit(e, item._id)}
+      delete={() => dispatch(deleteTodo(item._id))}
+      isCompleted={item.completed ? "Yes" : "No"}
       />
     ))
   ) : (

@@ -81,6 +81,10 @@ export default function TodoCard(props) {
           <Typography variant="body2" color="#E9F5DB">
             {props.description}
           </Typography>
+          <br/>
+          <Typography variant="body2" color="#E9F5DB">
+           Done: {props.isCompleted}
+          </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
