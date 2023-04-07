@@ -47,7 +47,7 @@ export const createTodo = createAsyncThunk(
 // Update todo
 export const updateTodo = createAsyncThunk(
   "todo/update",
-  async (id, thunkAPI) => {
+  async (id, todoData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await todoService.updateTodo(id, todoData, token);
